@@ -106,5 +106,6 @@ function callSendFileByUrl() {
   const url   = document.getElementById('sendFileUrl').value.trim();
   if (!phone) { showError('Введите номер телефона для sendFileByUrl.'); return; }
   if (!url)   { showError('Введите URL файла для sendFileByUrl.'); return; }
-  apiPost('sendFileByUrl', { chatId: `${phone}@c.us`, urlFile: url, fileName: 'file' });
+  const fileName = url.split('/').pop().split('?')[0] || 'file';
+  apiPost('sendFileByUrl', { chatId: `${phone}@c.us`, urlFile: url, fileName });
 }
