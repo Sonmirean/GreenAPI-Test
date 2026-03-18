@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GREEN-API Test Client</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="container">
+  <div class="page-header">
+    <span class="logo-badge">GREEN-API</span>
+    <h1>Test Client</h1>
+  </div>
+
+  <div class="main-layout">
+
+    <div class="left-panel">
+
+      <!-- Credentials -->
+      <div class="card">
+        <div class="card-title">Учётные данные</div>
+
+        <div class="form-group">
+          <label for="idInstance">idInstance</label>
+          <input type="text" id="idInstance" placeholder="Например: 1101234567" autocomplete="off" />
+        </div>
+
+        <div class="form-group">
+          <label for="apiToken">ApiTokenInstance</label>
+          <input type="password" id="apiToken" placeholder="Ваш API токен" autocomplete="off" />
+        </div>
+      </div>
+
+      <!-- GET Methods -->
+      <div class="card">
+        <div class="card-title">GET методы</div>
+
+        <div class="btn-row">
+          <button class="btn btn-secondary" onclick="callGetSettings()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            getSettings
+          </button>
+          <button class="btn btn-secondary" onclick="callGetStateInstance()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            getStateInstance
+          </button>
+        </div>
+      </div>
+
+      <!-- sendMessage -->
+      <div class="card">
+        <div class="card-title">sendMessage — POST</div>
+
+        <div class="form-group">
+          <label for="sendMsgPhone">Номер телефона</label>
+          <input type="text" id="sendMsgPhone" placeholder="71234567890" autocomplete="off" />
+        </div>
+
+        <div class="form-group">
+          <label for="sendMsgText">Текст сообщения</label>
+          <input type="text" id="sendMsgText" placeholder="Введите сообщение..." autocomplete="off" />
+        </div>
+
+        <button class="btn btn-primary btn-block" onclick="callSendMessage()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          sendMessage
+        </button>
+      </div>
+
+      <!-- sendFileByUrl -->
+      <div class="card">
+        <div class="card-title">sendFileByUrl — POST</div>
+
+        <div class="form-group">
+          <label for="sendFilePhone">Номер телефона</label>
+          <input type="text" id="sendFilePhone" placeholder="71234567890" autocomplete="off" />
+        </div>
+
+        <div class="form-group">
+          <label for="sendFileUrl">URL файла</label>
+          <input type="text" id="sendFileUrl" placeholder="https://example.com/file.pdf" autocomplete="off" />
+        </div>
+
+        <button class="btn btn-primary btn-block" onclick="callSendFileByUrl()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+          sendFileByUrl
+        </button>
+      </div>
+
+    </div>
+    <!-- /LEFT PANEL -->
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+      <div class="response-label">
+        <span>Ответ:</span>
+        <button class="clear-btn" onclick="clearResponse()">Очистить</button>
+      </div>
+      <div class="response-wrapper">
+        <div class="response-header">
+          <div class="response-header-dot" id="statusDot"></div>
+          <span class="response-header-text" id="statusText">Ожидание запроса...</span>
+          <span class="status-badge" id="statusBadge"></span>
+        </div>
+        <textarea
+          id="responseText"
+          readonly
+          placeholder="Здесь появится ответ от API в формате JSON..."
+        ></textarea>
+      </div>
+    </div>
+    <!-- /RIGHT PANEL -->
+
+  </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
